@@ -1,19 +1,17 @@
 "use client";
 
-import { AuthForm, useZodForm } from "~/components/auth/AuthForm";
 import { DefaultCard } from "~/shared/elemtents/cards";
 import { ISignUp, signUpSchema } from "~/shared/validation/auth";
-import { trpc } from "../../../../client/trpcClient";
 import { signIn } from "next-auth/react";
-import { DefaultInput } from "~/shared/elemtents/inputs";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { SubmitButton } from "~/shared/elemtents/buttons";
-import { Inputs } from "~/shared/utils";
 import LabelInputVertical from "~/shared/components/LabelInputs";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { trpc } from "~/client/trpcClient";
+import { AccountType } from "~/utils/constants/userRoles";
 
-export function RegisterUserForm() {
+export function RegisterUserForm(props: { title: string; type: AccountType }) {
     const [error, setError] = useState<any>();
     const [isLoading, setIsLoading] = useState<boolean>();
 
@@ -57,7 +55,7 @@ export function RegisterUserForm() {
     };
 
     return (
-        <DefaultCard title="Register" error={error}>
+        <DefaultCard title={props.title} error={error}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
                 <LabelInputVertical
                     id="name"
@@ -67,7 +65,11 @@ export function RegisterUserForm() {
                     error={errors.name}
                     register={register("name")}
                 />
-
+                <input
+                    value={props.type}
+                    type="hidden"
+                    {...register("accountType")}
+                />
                 <LabelInputVertical
                     id="email"
                     label="Email"

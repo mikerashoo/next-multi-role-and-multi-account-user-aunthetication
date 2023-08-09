@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { AccountType } from "~/utils/constants/userRoles";
 
 export const loginSchema = z.object({
   email: z.string().email(),
@@ -7,6 +8,7 @@ export const loginSchema = z.object({
 
 export const signUpSchema = loginSchema.extend({
   name: z.string(), 
+  accountType: z.string(),
 });
 
 export type ILogin = z.infer<typeof loginSchema>;

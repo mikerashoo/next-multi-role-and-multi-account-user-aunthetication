@@ -3,12 +3,14 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import {
+    ArrowDownCircleIcon,
     ArrowPathIcon,
     Bars3Icon,
     ChartPieIcon,
     CursorArrowRaysIcon,
     FingerPrintIcon,
     SquaresPlusIcon,
+    UserCircleIcon,
     XMarkIcon,
 } from "@heroicons/react/24/outline";
 import {
@@ -51,10 +53,49 @@ export default function Header() {
                 <div className="flex md:order-2">
                     {session && session.user ? (
                         <div className="flex flex-col p-4 md:p-0 mt-4 font-medium borde md:flex-row md:space-x-8 md:mt-0 md:border-0">
-                            {session.user.name}
-                            <PrimaryButton onClick={() => signOut()}>
-                                Logout
-                            </PrimaryButton>
+                            <div className="flex flex-row justify-center items-center">
+                                <div>
+                                    <p>
+                                        <UserCircleIcon
+                                            width={20}
+                                            className="inline"
+                                        />
+                                        {session.user.name}
+                                    </p>
+                                </div>
+
+                                <details className="dropdown">
+                                    <summary className="m-1 btn">
+                                        <ArrowDownCircleIcon
+                                            width={20}
+                                            className="inline"
+                                        />
+                                    </summary>
+                                    <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                                        {...session.user.accounts.map(
+                                            (account) => (
+                                                <li key={account.id}>
+                                                    <Link
+                                                        href={
+                                                            "/" + account.type
+                                                        }
+                                                    >
+                                                        My {account.type}{" "}
+                                                        account
+                                                    </Link>
+                                                </li>
+                                            )
+                                        )}
+                                        <li className="mt-4">
+                                            <PrimaryButton
+                                                onClick={() => signOut()}
+                                            >
+                                                Logout
+                                            </PrimaryButton>
+                                        </li>
+                                    </ul>
+                                </details>
+                            </div>
                         </div>
                     ) : (
                         <div className="flex flex-col p-4 md:p-0 mt-4 font-medium borde md:flex-row md:space-x-8 md:mt-0 md:border-0">
@@ -107,6 +148,23 @@ export default function Header() {
                             </li>
                         </ul>
                     )}
+                </div>
+
+                <div
+                    className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+                    id="navbar-sticky"
+                >
+                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium borde md:flex-row md:space-x-8 md:mt-0 md:border-0  ">
+                        <li>
+                            <NavLink href={"/buyer/register"}>
+                                Buyer Register
+                            </NavLink>
+                        </li>
+
+                        <li>
+                            <NavLink href={"/buyer/login"}>Buyer Login</NavLink>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>

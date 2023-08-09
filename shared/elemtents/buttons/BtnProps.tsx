@@ -1,4 +1,5 @@
 import { LinkProps } from "next/link";
+import { ReactNode } from "react";
 
 export interface BtnProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -9,6 +10,7 @@ export interface BtnProps
 
 export interface NavBtnProps extends LinkProps {
     href: string;
-    children: string;
+    children?: ReactNode | undefined;
+
     icon?: React.ReactElement;
 }

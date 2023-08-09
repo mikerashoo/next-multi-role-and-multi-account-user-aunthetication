@@ -26,7 +26,7 @@ export const nextAuthOptions: NextAuthOptions = {
 
           const result = await prisma.user.findFirst({
             where: { email },
-             
+            include: {accounts: true}
           });
 
           if (!result) {  throw new TRPCError({
@@ -42,7 +42,7 @@ export const nextAuthOptions: NextAuthOptions = {
               message:  CREDIENTIAL_ERROR,
             });
           } 
-          return { id: result.id, email, name: result.name, role: result.role} as any;
+          return { id: result.id, email, name: result.name, role: result.role, accounts: result.accounts} as any;
        
       },
     }),
@@ -59,6 +59,7 @@ export const nextAuthOptions: NextAuthOptions = {
         token.role = user.role;
         token.isAdmin = user.role == 'admin';
         token.isUser = user.role == 'user';
+        token.accounts = user.accounts;
 
       }
 
@@ -73,6 +74,7 @@ export const nextAuthOptions: NextAuthOptions = {
         session.user.role = token.role;
         session.user.isAdmin = token.role == 'admin';
         session.user.isUser = token.role == 'user';
+        session.user.accounts = token.accounts
       }
    
       return session;

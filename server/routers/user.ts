@@ -16,6 +16,9 @@ const defaultUserSelect = Prisma.validator<Prisma.UserSelect>()({
   name:true
 });
 
+ 
+
+
 export const userRouter = router({
   list: publicProcedure
     .input(
@@ -67,7 +70,7 @@ export const userRouter = router({
       signUpSchema
     )
     .mutation(async ({ input }) => {
-        const { name, email, password } = input;
+        const { name, email, password, accountType } = input;
 
       const exists = await prisma.user.findUnique({
         where: { email },
@@ -85,12 +88,11 @@ export const userRouter = router({
       const user = await prisma.user.create({
         data: {  name, email, password: hashedPassword },
       });
-    setTimeout(() => {
+        
+       await prisma.account.create({
+        data: {type: accountType, userId: user.id}
+      })
     return user;
-      
-    }, 200);
-
-   
-    
+     
     }),
 });

@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 
 function UserCard() {
     const { data: session, status } = useSession();
-
+    console.log("USer", session);
     return (
         <div>
             <p>Name: {session?.user.name}</p>

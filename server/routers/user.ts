@@ -80,13 +80,17 @@ export const userRouter = router({
             });
       
       }
-
     const hashedPassword = await hash(password);
 
-    const user = await prisma.user.create({
-      data: {  name, email, password: hashedPassword },
-    });
+      const user = await prisma.user.create({
+        data: {  name, email, password: hashedPassword },
+      });
+    setTimeout(() => {
     return user;
+      
+    }, 200);
+
+   
     
     }),
 });

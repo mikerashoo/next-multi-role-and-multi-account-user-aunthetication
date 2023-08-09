@@ -38,14 +38,14 @@ export default function Header() {
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link href="/" className="flex items-center">
                     <Image
-                        width={100}
-                        height={100}
-                        src="https://flowbite.com/docs/images/logo.svg"
+                        width={150}
+                        height={150}
+                        src={"/ring-icon.png"}
                         className="h-8 mr-3"
                         alt="Flowbite Logo"
                     />
                     <span className="self-center text-2xl font-semibold whitespace-nowrap ">
-                        Flowbite
+                        NextText
                     </span>
                 </Link>
                 <div className="flex md:order-2">

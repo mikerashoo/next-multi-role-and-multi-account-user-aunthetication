@@ -4,6 +4,7 @@ export interface BtnProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: string;
     icon?: React.ReactElement;
+    isLoading?: boolean;
 }
 
 export interface NavBtnProps extends LinkProps {

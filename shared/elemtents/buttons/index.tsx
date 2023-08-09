@@ -13,6 +13,31 @@ export function PrimaryButton(props: BtnProps) {
     );
 }
 
+export function SubmitButton(props: BtnProps) {
+    const { children, icon, isLoading, ...rest } = props;
+    // Render
+    return (
+        <button
+            {...rest}
+            className="btn btn-sm  w-full btn-outline btn-primary"
+            type="submit"
+            disabled={isLoading}
+        >
+            {isLoading ? (
+                <>
+                    <span className="loading loading-spinner"></span>{" "}
+                    {props.children}
+                </>
+            ) : (
+                <>
+                    <span>{icon}</span>
+                    <span>{children}</span>
+                </>
+            )}
+        </button>
+    );
+}
+
 export function NavLink(props: NavBtnProps) {
     const { children, icon, href, ...rest } = props;
     // Render

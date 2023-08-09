@@ -8,7 +8,7 @@ export function DefaultCard(props: CardProps) {
             <div className="card-body p-4">
                 {title && <h2 className="card-title">{title}</h2>}
                 {error && (
-                    <div className="alert alert-error">
+                    <div className="alert alert-error mb-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="stroke-current shrink-0 h-6 w-6"

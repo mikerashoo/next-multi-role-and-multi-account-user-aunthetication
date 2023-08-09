@@ -1,107 +1,86 @@
 "use client";
 
-import { AuthForm, SubmitButton, useZodForm } from "~/components/auth/AuthForm";
+import { AuthForm, useZodForm } from "~/components/auth/AuthForm";
 import { DefaultCard } from "~/shared/elemtents/cards";
-import { signUpSchema } from "~/shared/validation/auth";
+import { ISignUp, signUpSchema } from "~/shared/validation/auth";
 import { trpc } from "../../../../client/trpcClient";
 import { signIn } from "next-auth/react";
 import { DefaultInput } from "~/shared/elemtents/inputs";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { SubmitButton } from "~/shared/elemtents/buttons";
+import { Inputs } from "~/shared/utils";
+import LabelInputVertical from "~/shared/components/LabelInputs";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function RegisterUserForm() {
     const [error, setError] = useState<any>();
+    const [isLoading, setIsLoading] = useState<boolean>();
 
-    const form = useZodForm({
-        schema: signUpSchema,
-        defaultValues: {
-            name: "",
-            email: "",
-            password: "",
-        },
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<ISignUp>({
+        resolver: zodResolver(signUpSchema),
     });
-    const mutation = trpc.user.register.useMutation({
+
+    const registerMutation = trpc.user.register.useMutation({
         onSuccess: async (data) => {
+            setIsLoading(false);
+
+            console.log("Registered data", data);
             signIn(undefined, { callbackUrl: "/" });
         },
         onError: (error, variables, context) => {
+            setIsLoading(false);
+
+            console.error("error", error);
             setError(error.message);
         },
     });
-    console.log(form.formState);
+    const onSubmit: SubmitHandler<ISignUp> = async (data) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            await registerMutation.mutateAsync(data);
+        } catch (cause) {
+            console.error({ cause }, "Failed to register");
+        }
+    };
 
     return (
         <DefaultCard title="Register" error={error}>
-            <div>
-                <AuthForm
-                    form={form}
-                    handleSubmit={async (values) => {
-                        console.log("Values");
-                        const resp = await mutation.mutateAsync(values);
-                        console.log("Reap", resp);
-                        form.reset();
-                    }}
-                    className="space-y-2"
-                >
-                    <div>
-                        <label>
-                            Name
-                            <br />
-                            <DefaultInput
-                                key="name"
-                                type="name"
-                                placeholder="Enter name"
-                                register={{ ...form.register("name") }}
-                            />
-                        </label>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+                <LabelInputVertical
+                    id="name"
+                    label="Name"
+                    type="text"
+                    placeholder="Enter name"
+                    error={errors.name}
+                    register={register("name")}
+                />
 
-                        {form.formState.errors.name?.message && (
-                            <p className="text-red-700">
-                                {form.formState.errors.name?.message}
-                            </p>
-                        )}
-                    </div>
-                    <div>
-                        <label>
-                            Email
-                            <br />
-                            <DefaultInput
-                                key="email"
-                                type="email"
-                                placeholder="Enter email"
-                                register={{ ...form.register("email") }}
-                            />
-                        </label>
-                        {form.formState.errors.email?.message && (
-                            <p className="text-red-700">
-                                {form.formState.errors.email?.message}
-                            </p>
-                        )}
-                    </div>
-                    <div>
-                        <label>
-                            Password
-                            <br />
-                            <DefaultInput
-                                key="password"
-                                type="password"
-                                placeholder="Enter password"
-                                register={{ ...form.register("password") }}
-                            />
-                        </label>
-                        {form.formState.errors.password?.message && (
-                            <p className="text-red-700">
-                                {form.formState.errors.password?.message}
-                            </p>
-                        )}
-                    </div>
-                </AuthForm>
-                <SubmitButton
-                    form={form} // If you place the submit button outside of the form, you need to specify the form to submit
-                    className="border bg-primary-500 text-white p-2 font-bold"
-                >
-                    Register
-                </SubmitButton>
-            </div>
+                <LabelInputVertical
+                    id="email"
+                    label="Email"
+                    type="email"
+                    error={errors.email}
+                    placeholder="Enter email here"
+                    register={register("email")}
+                />
+
+                <LabelInputVertical
+                    id="password"
+                    label="Password"
+                    type="password"
+                    error={errors.password}
+                    placeholder="Enter password here"
+                    register={register("password")}
+                />
+
+                <SubmitButton isLoading={isLoading}>Register</SubmitButton>
+            </form>
         </DefaultCard>
     );
 }

@@ -22,10 +22,11 @@ export const nextAuthOptions: NextAuthOptions = {
       },
       authorize: async (credentials) => {
         
-          const { email, password } = await loginSchema.parseAsync(credentials);
+          const { email, password } = await loginSchema.parseAsync(credentials);  
 
           const result = await prisma.user.findFirst({
             where: { email },
+             
           });
 
           if (!result) {  throw new TRPCError({
@@ -41,18 +42,24 @@ export const nextAuthOptions: NextAuthOptions = {
               message:  CREDIENTIAL_ERROR,
             });
           } 
-          return { id: result.id, email, name: result.name } as any;
+          return { id: result.id, email, name: result.name, role: result.role} as any;
        
       },
     }),
   ],
+  
   callbacks: {
     
     jwt: async ({ token, user }) => {
+      
       if (user) {
         token.userId = user.id;
         token.email = user.email;
-        token.name = user.name;
+        token.name = user.name; 
+        token.role = user.role;
+        token.isAdmin = user.role == 'admin';
+        token.isUser = user.role == 'user';
+
       }
 
       
@@ -60,9 +67,12 @@ export const nextAuthOptions: NextAuthOptions = {
     },
     session: async ({ session, token }) => {
       if (token) {
-        session.user.userId = token.userId;
+        
         session.user.email = token.email;
         session.user.name = token.name;
+        session.user.role = token.role;
+        session.user.isAdmin = token.role == 'admin';
+        session.user.isUser = token.role == 'user';
       }
    
       return session;

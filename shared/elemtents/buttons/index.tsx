@@ -6,7 +6,7 @@ export function PrimaryButton(props: BtnProps) {
     const { children, icon, ...rest } = props;
     // Render
     return (
-        <button {...rest} className="btn btn-sm btn-outline btn-primary">
+        <button {...rest} className="btn btn-xs btn-outline btn-primary">
             <span>{icon}</span>
             <span>{children}</span>
         </button>
@@ -19,7 +19,7 @@ export function SubmitButton(props: BtnProps) {
     return (
         <button
             {...rest}
-            className="btn btn-sm  w-full btn-outline btn-primary"
+            className="btn btn-xs  w-full btn-outline btn-primary"
             type="submit"
             disabled={isLoading}
         >
@@ -45,7 +45,7 @@ export function NavLink(props: NavBtnProps) {
         <Link
             href={href}
             {...rest}
-            className="btn btn-sm btn-link"
+            className="btn btn-xs btn-link"
             role="button"
         >
             <span>{icon}</span>
@@ -61,7 +61,7 @@ export function NavButton(props: NavBtnProps) {
         <Link
             href={href}
             {...rest}
-            className="btn btn-sm btn-outline btn-primary"
+            className="btn btn-xs btn-outline btn-primary"
             role="button"
         >
             <span>{icon}</span>

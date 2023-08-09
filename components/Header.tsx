@@ -95,7 +95,15 @@ export default function Header() {
                     {session && session.user && (
                         <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium borde md:flex-row md:space-x-8 md:mt-0 md:border-0  ">
                             <li>
-                                <NavLink href="/dashboard"> Dashboard </NavLink>
+                                <NavLink
+                                    href={
+                                        session.user.isAdmin
+                                            ? "/admin/dashboard"
+                                            : "/dashboard"
+                                    }
+                                >
+                                    Dashboard
+                                </NavLink>
                             </li>
                         </ul>
                     )}

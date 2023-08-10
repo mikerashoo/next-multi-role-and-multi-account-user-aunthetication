@@ -1,9 +1,6 @@
-import { RegisterUserForm } from "./components/RegisterUserForm";
+import { RegisterUserForm } from "~/components/auth/RegisterUserForm";
+import { AccountType } from "~/utils/constants/userRoles";
 
 export default async function Page() {
-    return (
-        <div>
-            <RegisterUserForm />
-        </div>
-    );
+    return <RegisterUserForm type={AccountType.buyer} title="Admin Register" />;
 }

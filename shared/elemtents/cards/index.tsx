@@ -4,7 +4,7 @@ export function DefaultCard(props: CardProps) {
     const { children, title, error, ...rest } = props;
     // Render
     return (
-        <div className="bg-white card shadow-xl">
+        <div className="w-full bg-white border border-gray-200 rounded-lg shadow p-4">
             <div className="card-body p-4">
                 {title && <h2 className="card-title">{title}</h2>}
                 {error && (

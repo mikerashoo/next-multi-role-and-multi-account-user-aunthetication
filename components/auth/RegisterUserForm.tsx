@@ -10,6 +10,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "~/client/trpcClient";
 import { AccountType } from "~/utils/constants/userRoles";
+import Link from "next/link";
 
 export function RegisterUserForm(props: { title: string; type: AccountType }) {
     const [error, setError] = useState<any>();
@@ -89,6 +90,16 @@ export function RegisterUserForm(props: { title: string; type: AccountType }) {
                 />
 
                 <SubmitButton isLoading={isLoading}>Register</SubmitButton>
+
+                <p className="text-gray-500 dark:text-gray-400">
+                    Have account{" "}
+                    <Link
+                        href={`/${props.type}/login`}
+                        className="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
+                    >
+                        Login
+                    </Link>
+                </p>
             </form>
         </DefaultCard>
     );

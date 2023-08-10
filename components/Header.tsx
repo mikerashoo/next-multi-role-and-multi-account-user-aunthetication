@@ -1,26 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import {
     ArrowDownCircleIcon,
-    ArrowPathIcon,
-    Bars3Icon,
-    ChartPieIcon,
-    CursorArrowRaysIcon,
-    FingerPrintIcon,
-    SquaresPlusIcon,
     UserCircleIcon,
-    XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-    ChevronDownIcon,
-    PhoneIcon,
-    PlayCircleIcon,
-} from "@heroicons/react/20/solid";
 import Image from "next/image";
 import { NavButton, NavLink, PrimaryButton } from "~/shared/elemtents/buttons";
 import { signOut, useSession } from "next-auth/react";
+import AppLogo from "./AppLogo";
 const navigation = [
     { name: "Product", href: "#" },
     { name: "Features", href: "#" },
@@ -37,21 +26,10 @@ export default function Header() {
 
     return (
         <nav className="bg-white  fixed w-full z-20 top-0 left-0 border-b border-gray-200">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <Link href="/" className="flex items-center">
-                    <Image
-                        width={150}
-                        height={150}
-                        src={"/ring-icon.png"}
-                        className="h-8 mr-3"
-                        alt="Flowbite Logo"
-                    />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap ">
-                        NextText
-                    </span>
-                </Link>
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
+                <AppLogo />
                 <div className="flex md:order-2">
-                    {session && session.user ? (
+                    {session && session.user && (
                         <div className="flex flex-col p-4 md:p-0 mt-4 font-medium borde md:flex-row md:space-x-8 md:mt-0 md:border-0">
                             <div className="flex flex-row justify-center items-center">
                                 <div>
@@ -96,11 +74,6 @@ export default function Header() {
                                     </ul>
                                 </details>
                             </div>
-                        </div>
-                    ) : (
-                        <div className="flex flex-col p-4 md:p-0 mt-4 font-medium borde md:flex-row md:space-x-8 md:mt-0 md:border-0">
-                            <NavButton href="/login">Login</NavButton>
-                            <NavButton href="/register">Register</NavButton>
                         </div>
                     )}
 
@@ -148,23 +121,6 @@ export default function Header() {
                             </li>
                         </ul>
                     )}
-                </div>
-
-                <div
-                    className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-                    id="navbar-sticky"
-                >
-                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium borde md:flex-row md:space-x-8 md:mt-0 md:border-0  ">
-                        <li>
-                            <NavLink href={"/buyer/register"}>
-                                Buyer Register
-                            </NavLink>
-                        </li>
-
-                        <li>
-                            <NavLink href={"/buyer/login"}>Buyer Login</NavLink>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </nav>

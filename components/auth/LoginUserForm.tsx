@@ -14,6 +14,9 @@ import { useRouter } from "next/navigation";
 import { SubmitButton } from "~/shared/elemtents/buttons";
 import LabelInputVertical from "~/shared/components/LabelInputs";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AccountType } from "~/utils/constants/userRoles";
+import Link from "next/link";
+import { type } from "os";
 
 const formatErrors = (errors: Record<string, FieldError>) =>
     Object.keys(errors).map((key) => ({
@@ -21,7 +24,7 @@ const formatErrors = (errors: Record<string, FieldError>) =>
         message: errors[key].message,
     }));
 
-export function LoginUserForm() {
+export function LoginUserForm(props: { title: string; type: AccountType }) {
     const [error, setError] = useState<any>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const searchParams = useSearchParams();
@@ -65,7 +68,7 @@ export function LoginUserForm() {
         }
     };
     return (
-        <DefaultCard title="Login" error={error}>
+        <DefaultCard title={props.title} error={error}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
                 <LabelInputVertical
                     id="email"
@@ -86,6 +89,16 @@ export function LoginUserForm() {
                 />
 
                 <SubmitButton isLoading={isLoading}>Login</SubmitButton>
+
+                <p className="text-gray-500 dark:text-gray-400">
+                    Not registered yet?{" "}
+                    <Link
+                        href={`/${props.type}/register`}
+                        className="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
+                    >
+                        Register
+                    </Link>
+                </p>
             </form>
         </DefaultCard>
     );

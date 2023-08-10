@@ -37,7 +37,7 @@ export default async function RootLayout(props: PropsWithChildren) {
                                         }}
                                     />
                                 </div>
-                                <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+                                <div className="mx-auto flex justify-center items-center max-w-2xl py-32 sm:py-48 lg:py-56">
                                     {props.children}
                                 </div>
                             </div>

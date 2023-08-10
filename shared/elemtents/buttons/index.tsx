@@ -6,7 +6,10 @@ export function PrimaryButton(props: BtnProps) {
     const { children, icon, ...rest } = props;
     // Render
     return (
-        <button {...rest} className="btn btn-xs btn-outline btn-primary">
+        <button
+            {...rest}
+            className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+        >
             <span>{icon}</span>
             <span>{children}</span>
         </button>
@@ -19,7 +22,7 @@ export function SubmitButton(props: BtnProps) {
     return (
         <button
             {...rest}
-            className="btn btn-xs  w-full btn-outline btn-primary"
+            className="w-full text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-4 mt-8"
             type="submit"
             disabled={isLoading}
         >
@@ -45,8 +48,22 @@ export function NavLink(props: NavBtnProps) {
         <Link
             href={href}
             {...rest}
-            className="btn btn-xs btn-link"
-            role="button"
+            className=" text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+        >
+            <span>{icon}</span>
+            <span>{children}</span>
+        </Link>
+    );
+}
+
+export function NavLinkSecondary(props: NavBtnProps) {
+    const { children, icon, href, ...rest } = props;
+    // Render
+    return (
+        <Link
+            href={href}
+            {...rest}
+            className="w-full text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
         >
             <span>{icon}</span>
             <span>{children}</span>

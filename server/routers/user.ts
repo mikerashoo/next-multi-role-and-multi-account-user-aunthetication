@@ -6,9 +6,10 @@ import { router, publicProcedure, privateProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { prisma } from "~/server/prisma";
-import { signUpSchema } from "~/shared/validation/auth";
+import { deleteAccountSchema, linkAccountSchema, signUpSchema } from "~/shared/validation/auth";
 import { hash } from "argon2";
 import { Prisma } from "@prisma/client";
+import { AccountType } from "~/utils/constants/userRoles";
 
 const defaultUserSelect = Prisma.validator<Prisma.UserSelect>()({
   id: true, 
@@ -65,6 +66,7 @@ export const userRouter = router({
         nextCursor,
       };
     }),
+    // REGISTER END-POINT
   register: publicProcedure
     .input(
       signUpSchema
@@ -93,6 +95,83 @@ export const userRouter = router({
         data: {type: accountType, userId: user.id}
       })
     return user;
+     
+    }),
+
+    // LINK ACCOUNT END-POINT
+    linkToAccount: publicProcedure
+    .input(
+      linkAccountSchema
+    )
+    .mutation(async ({ input }) => {
+        const { userId, accountType } = input;
+
+        const exists = await prisma.user.findUnique({
+          where: { id: userId },
+        });
+
+        if (!exists) {
+            throw new TRPCError({
+                code: "NOT_FOUND",
+                message: `User doesn't exists.`,
+              });
+        
+        } 
+
+        const accountExists = await prisma.account.findFirst({
+          where: { type: accountType, userId: userId },
+        });
+        
+        if (accountExists) {
+            throw new TRPCError({
+                code: "NOT_FOUND",
+                message: `Account already exists.`,
+              });
+        
+        } 
+          
+        const account = await prisma.account.create({
+          data: {type: accountType, userId }
+        })
+        return account;
+     
+    }),
+
+    deleteAccount: publicProcedure
+    .input(
+      deleteAccountSchema
+    )
+    .mutation(async ({ input }) => {
+       
+        const { userId, accountId } = input;
+
+        const userExists = await prisma.user.findUnique({
+          where: { id: userId },
+        });
+
+        if (!userExists) {
+            throw new TRPCError({
+                code: "NOT_FOUND",
+                message: `User doesn't exists.`,
+              });
+        
+        } 
+        const accountExists = await prisma.account.findUnique({
+          where: { id: accountId, userId: userId },
+        });
+        
+        if (!accountExists) {
+            throw new TRPCError({
+                code: "NOT_FOUND",
+                message: `Account doesn't exists.`,
+              });
+        
+        }
+          
+        const deleted = await prisma.account.delete({
+          where: {id: accountId}
+        })
+      return deleted;
      
     }),
 });

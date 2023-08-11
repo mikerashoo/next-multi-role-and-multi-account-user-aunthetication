@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { NavLink } from "~/shared/elemtents/buttons";
+import { NavLink } from "~/components/elemtents/buttons";
 
 function AppLogo() {
     return (

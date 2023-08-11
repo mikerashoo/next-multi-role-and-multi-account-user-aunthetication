@@ -1,6 +1,6 @@
 "use client";
 
-import { DefaultCard } from "~/shared/elemtents/cards";
+import { DefaultCard } from "~/components/elemtents/cards";
 import { ILogin, loginSchema } from "~/shared/validation/auth";
 import { signIn, SignInResponse } from "next-auth/react";
 import { FieldError, SubmitHandler, useForm } from "react-hook-form";
@@ -11,8 +11,8 @@ import {
     GENERAL_ERROR,
 } from "~/utils/constants/apiErrorResponses";
 import { useRouter } from "next/navigation";
-import { SubmitButton } from "~/shared/elemtents/buttons";
-import LabelInputVertical from "~/shared/components/LabelInputs";
+import { SubmitButton } from "~/components/elemtents/buttons";
+import LabelInputVertical from "~/components/commons/LabelInputs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AccountType } from "~/utils/constants/userRoles";
 import Link from "next/link";
@@ -49,7 +49,7 @@ export function LoginUserForm(props: { title: string; type: AccountType }) {
             redirect: Boolean(false),
             email: email,
             password: password,
-            callbackUrl: callbackUrl || "/",
+            callbackUrl: callbackUrl || "/" + props.type,
         })) as unknown as SignInResponse;
         const { ok, error, url, status } = resp;
         if (ok && url) {

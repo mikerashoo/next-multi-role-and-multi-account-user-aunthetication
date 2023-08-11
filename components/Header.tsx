@@ -7,7 +7,12 @@ import {
     UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import { NavButton, NavLink, PrimaryButton } from "~/shared/elemtents/buttons";
+import {
+    NavButton,
+    NavLink,
+    NavLinkSecondary,
+    PrimaryButton,
+} from "~/components/elemtents/buttons";
 import { signOut, useSession } from "next-auth/react";
 import AppLogo from "./AppLogo";
 const navigation = [
@@ -20,16 +25,16 @@ const navigation = [
 export default function Header() {
     const { data: session, status } = useSession();
 
-    const logout = async () => {
-        console.log("this");
-    };
+    const arr = ["one", "two", "three"];
+    const _arr = arr.filter((_a) => _a != "one");
+    console.log("TESt", _arr);
 
     return (
         <nav className="bg-white  fixed w-full z-20 top-0 left-0 border-b border-gray-200">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
                 <AppLogo />
                 <div className="flex md:order-2">
-                    {session && session.user && (
+                    {session && session.user ? (
                         <div className="flex flex-col p-4 md:p-0 mt-4 font-medium borde md:flex-row md:space-x-8 md:mt-0 md:border-0">
                             <div className="flex flex-row justify-center items-center">
                                 <div>
@@ -50,20 +55,13 @@ export default function Header() {
                                         />
                                     </summary>
                                     <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                                        {...session.user.accounts.map(
-                                            (account) => (
-                                                <li key={account.id}>
-                                                    <Link
-                                                        href={
-                                                            "/" + account.type
-                                                        }
-                                                    >
-                                                        My {account.type}{" "}
-                                                        account
-                                                    </Link>
-                                                </li>
-                                            )
-                                        )}
+                                        {...session.accounts.map((account) => (
+                                            <li key={account.id}>
+                                                <Link href={"/" + account.type}>
+                                                    My {account.type} account
+                                                </Link>
+                                            </li>
+                                        ))}
                                         <li className="mt-4">
                                             <PrimaryButton
                                                 onClick={() => signOut()}
@@ -75,6 +73,8 @@ export default function Header() {
                                 </details>
                             </div>
                         </div>
+                    ) : (
+                        <NavLink href={`/ogin`}> Login </NavLink>
                     )}
 
                     <button
@@ -106,21 +106,15 @@ export default function Header() {
                     className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
                     id="navbar-sticky"
                 >
-                    {session && session.user && (
-                        <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium borde md:flex-row md:space-x-8 md:mt-0 md:border-0  ">
-                            <li>
-                                <NavLink
-                                    href={
-                                        session.user.isAdmin
-                                            ? "/admin/dashboard"
-                                            : "/dashboard"
-                                    }
-                                >
-                                    Dashboard
-                                </NavLink>
-                            </li>
-                        </ul>
-                    )}
+                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium borde md:flex-row md:space-x-8 md:mt-0 md:border-0  ">
+                        <li>
+                            <Link href="/">Products</Link>
+                        </li>
+
+                        <li>
+                            <Link href="/">About</Link>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>

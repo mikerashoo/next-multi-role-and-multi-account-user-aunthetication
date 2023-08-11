@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 export interface BtnProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    children: string;
+    children: ReactNode;
     icon?: React.ReactElement;
     isLoading?: boolean;
 }

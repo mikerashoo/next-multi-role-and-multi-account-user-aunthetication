@@ -50,7 +50,7 @@ export const nextAuthOptions: NextAuthOptions = {
   
   callbacks: {
     
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user, session, trigger }) => {
       
       if (user) {
         token.userId = user.id;
@@ -63,18 +63,24 @@ export const nextAuthOptions: NextAuthOptions = {
 
       }
 
+      if(trigger === 'update') {
+        if(session.accounts) {
+          token.accounts = session.accounts;
+        }
+      }
+
       
       return token;
     },
     session: async ({ session, token }) => {
       if (token) {
-        
+        session.user.userId = token.userId;
         session.user.email = token.email;
         session.user.name = token.name;
         session.user.role = token.role;
         session.user.isAdmin = token.role == 'admin';
         session.user.isUser = token.role == 'user';
-        session.user.accounts = token.accounts
+        session.accounts = token.accounts
       }
    
       return session;

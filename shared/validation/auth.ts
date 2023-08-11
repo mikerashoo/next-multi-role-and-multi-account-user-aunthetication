@@ -11,5 +11,18 @@ export const signUpSchema = loginSchema.extend({
   accountType: z.string(),
 });
 
+export const linkAccountSchema = z.object({
+  userId: z.string(),
+  accountType: z.string(),
+});
+
+
+export const deleteAccountSchema = z.object({
+  userId: z.string(),
+  accountId: z.string(),
+});
+
 export type ILogin = z.infer<typeof loginSchema>;
 export type ISignUp = z.infer<typeof signUpSchema>; 
+export type IAccountLink = z.infer<typeof linkAccountSchema>;
+export type IDeleteAccountLink = z.infer<typeof deleteAccountSchema>;

@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "~/shared/auth";
-import { PrimaryButton } from "~/shared/elemtents/buttons";
-import { DefaultCard } from "~/shared/elemtents/cards";
+import { nextAuthOptions } from "~/shared/nextAuthOptions";
+import { PrimaryButton } from "~/components/elemtents/buttons";
+import { DefaultCard } from "~/components/elemtents/cards";
 
 export default async function Page() {
     const session = await getServerSession(nextAuthOptions);

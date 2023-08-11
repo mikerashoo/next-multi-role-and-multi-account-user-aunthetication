@@ -1,5 +1,5 @@
 import React, { useId } from "react";
-import { DefaultInput } from "~/shared/elemtents/inputs";
+import { DefaultInput } from "~/components/elemtents/inputs";
 import { LabelInputProps } from "./props";
 
 function LabelInputVertical(props: LabelInputProps) {

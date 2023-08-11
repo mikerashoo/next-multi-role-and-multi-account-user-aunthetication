@@ -6,7 +6,9 @@ export function DefaultCard(props: CardProps) {
     return (
         <div className="w-full bg-white border border-gray-200 rounded-lg shadow p-4">
             <div className="card-body p-4">
-                {title && <h2 className="card-title">{title}</h2>}
+                {title && <h2 className="card-title ">{title}</h2>}
+                {/* <div className="divider mt-0 mb-0.5"></div> */}
+
                 {error && (
                     <div className="alert alert-error mb-2">
                         <svg
@@ -25,7 +27,6 @@ export function DefaultCard(props: CardProps) {
                         <span>{error}</span>
                     </div>
                 )}
-                <div className="divider"></div>
                 <div>{children}</div>
             </div>
         </div>

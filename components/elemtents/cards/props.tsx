@@ -5,7 +5,7 @@ export interface CardProps
         HTMLAttributes<HTMLDivElement>,
         HTMLDivElement
     > {
-    children?: ReactNode | undefined;
+    children?: React.ReactNode;
     title?: string;
     error?: string;
 }

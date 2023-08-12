@@ -11,7 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "~/client/trpcClient";
 import { AccountType } from "~/utils/constants/userRoles";
 import Link from "next/link";
-import { type } from "os";
 
 export function RegisterUserForm(props: { title: string; type: AccountType }) {
     const [error, setError] = useState<any>();

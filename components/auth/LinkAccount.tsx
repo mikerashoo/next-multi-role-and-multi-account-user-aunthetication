@@ -3,7 +3,7 @@
 import { DefaultCard } from "~/components/elemtents/cards";
 import { IAccountLink, linkAccountSchema } from "~/shared/validation/auth";
 import { useSession } from "next-auth/react";
-import { FieldError, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { SubmitButton } from "~/components/elemtents/buttons";
@@ -12,7 +12,6 @@ import { AccountType } from "~/utils/constants/userRoles";
 import { trpc } from "~/client/trpcClient";
 import { Session } from "next-auth";
 import LoadingSpinner from "../commons/LoadingSpinner";
-import { DefaultInput } from "../elemtents/inputs";
 import LabelInputVertical from "../commons/LabelInputs";
 
 export function LinkAccount(props: {

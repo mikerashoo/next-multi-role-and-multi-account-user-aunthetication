@@ -3,7 +3,7 @@
 import { DefaultCard } from "~/components/elemtents/cards";
 import { ILogin, loginSchema } from "~/shared/validation/auth";
 import { signIn, SignInResponse } from "next-auth/react";
-import { FieldError, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -16,13 +16,6 @@ import LabelInputVertical from "~/components/commons/LabelInputs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AccountType } from "~/utils/constants/userRoles";
 import Link from "next/link";
-import { type } from "os";
-
-const formatErrors = (errors: Record<string, FieldError>) =>
-    Object.keys(errors).map((key) => ({
-        key,
-        message: errors[key].message,
-    }));
 
 export function LoginUserForm(props: { title: string; type: AccountType }) {
     const [error, setError] = useState<any>();
@@ -51,7 +44,7 @@ export function LoginUserForm(props: { title: string; type: AccountType }) {
             password: password,
             callbackUrl: callbackUrl || "/" + props.type,
         })) as unknown as SignInResponse;
-        const { ok, error, url, status } = resp;
+        const { ok, error, url } = resp;
         if (ok && url) {
             router.push(url);
         }

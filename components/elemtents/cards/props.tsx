@@ -1,7 +1,6 @@
 import { HTMLAttributes } from "react";
 
-export interface CardProps {
-    children?: JSX.Element;
+export interface CardProps extends React.PropsWithChildren {
     title?: string;
     error?: string;
 }

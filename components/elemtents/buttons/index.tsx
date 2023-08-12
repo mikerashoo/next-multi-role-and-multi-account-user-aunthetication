@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useFormContext } from "react-hook-form";
 import { BtnProps, NavBtnProps } from "./BtnProps";
 
 export function DefaultButton(props: BtnProps) {

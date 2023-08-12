@@ -2,7 +2,11 @@
 import React from "react";
 
 function LoadingSpinner() {
-    return <div>LoadingSpinner</div>;
+    return (
+        <div>
+            <span className="loading loading-spinner text-success"></span>
+        </div>
+    );
 }
 
 export default LoadingSpinner;

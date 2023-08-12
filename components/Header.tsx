@@ -2,30 +2,11 @@
 
 import Link from "next/link";
 import React from "react";
-import {
-    ArrowDownCircleIcon,
-    ArrowLongUpIcon,
-    LockOpenIcon,
-    UserCircleIcon,
-} from "@heroicons/react/24/outline";
 import Image from "next/image";
-import {
-    NavButton,
-    NavLink,
-    NavLinkSecondary,
-    PrimaryButton,
-} from "~/components/elemtents/buttons";
 import { signOut, useSession } from "next-auth/react";
 import AppLogo from "./AppLogo";
-const navigation = [
-    { name: "Product", href: "#" },
-    { name: "Features", href: "#" },
-    { name: "Marketplace", href: "#" },
-    { name: "Company", href: "#" },
-];
-
 export default function Header() {
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
 
     const arr = ["one", "two", "three"];
     const _arr = arr.filter((_a) => _a != "one");

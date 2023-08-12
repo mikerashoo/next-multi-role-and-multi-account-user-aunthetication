@@ -1,6 +1,7 @@
 // middleware.ts
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
+import { AccountType } from "./utils/constants/userRoles";
 // paths that require authentication or authorization
 const authPaths: string[] = ["/admin/login", "/admin/register", "/seller/login", "/seller/register", "/buyer/login", "/buyer/register",  ];
 const adminPath = "/admin"; 
@@ -42,7 +43,14 @@ export async function middleware(request: NextRequest) {
 
   // BUYER AUTHORIZATION 
   if(pathname.startsWith(buyerPath)){
-      if(!token.accounts.find((account) => account.type == "buyer")){
+    const buyerAccount = token.accounts.find((account) => account.type == AccountType.buyer);
+    if(buyerAccount && pathname.startsWith(`/buyer/link-account`)){
+      // const url = new URL(`/buyer`);
+      const url = new URL(`/buyer`, request.url);
+
+      return NextResponse.redirect(url);
+    }
+      else if(!buyerAccount){
       const url = new URL(`/buyer/link-account`, request.url);
       return NextResponse.rewrite(url);
     }
@@ -51,10 +59,18 @@ export async function middleware(request: NextRequest) {
 
   // SELLER AUTHORIZATION 
   if(pathname.startsWith(sellerPath)){
-    if(!token.accounts.find((account) => account.type == "seller")){
-    const url = new URL(`/seller/link-account`, request.url);
-    return NextResponse.rewrite(url);
-  }
+
+    const sellerAccount = token.accounts.find((account) => account.type == AccountType.seller);
+    if(sellerAccount && pathname.startsWith(`/seller/link-account`)){
+      // const url = new URL(`/seller`);
+      const url = new URL(`/seller`, request.url);
+
+      return NextResponse.redirect(url);
+    }
+      else if(!sellerAccount){
+      const url = new URL(`/seller/link-account`, request.url);
+      return NextResponse.rewrite(url);
+    }
 }
 
   return res;
@@ -63,6 +79,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    '/profile',
     '/dashboard/:path*',
     '/admin/:path*',
     '/seller/:path*', 

@@ -17,6 +17,7 @@ import {
     WarningButton,
 } from "../elemtents/buttons";
 import { DefaultCard } from "../elemtents/cards";
+import Divider from "../commons/Dividers";
 function UserCard(props: { user: User | undefined; account: Account }) {
     const { user, account } = props;
     console.log(account);
@@ -64,13 +65,9 @@ function UserCard(props: { user: User | undefined; account: Account }) {
     };
     return (
         <DefaultCard error={error}>
-            <p>Name: {user?.name}</p>
-            <p>Email: {user?.email}</p>
-            <p>Role: {user?.role}</p>
-            <div className="divider"></div>
-
+            <p>Account Name: {account?.name}</p>
+            <Divider />
             <div>
-                {/* The button to open modal */}
                 <WarningButton onClick={() => setIsModalOpen(true)}>
                     Delete my {account.type} account
                 </WarningButton>

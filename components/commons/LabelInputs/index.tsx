@@ -14,7 +14,7 @@ function LabelInputVertical(props: LabelInputProps) {
             </label>
             <input
                 id={id}
-                className={`w-full px-3 py-2 text-sm leading-tight text-gray-700 border ${
+                className={`w-96 px-3 py-2 text-sm leading-tight text-gray-700 border ${
                     error && "border-red-500"
                 } rounded appearance-none focus:outline-none focus:shadow-outline`}
                 type={type ?? "text"}

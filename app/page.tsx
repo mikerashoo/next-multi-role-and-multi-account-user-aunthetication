@@ -7,7 +7,7 @@ export default async function Page() {
     const session = await getServerSession(nextAuthOptions);
 
     return (
-        <div className="flex space-x-4">
+        <div className=" flex justify-center space-x-8 w-full">
             {Object.values(AccountType).map((accountType) => (
                 <HomePageAccountSection
                     key={accountType}

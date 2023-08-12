@@ -4,6 +4,8 @@ import Link from "next/link";
 import React from "react";
 import {
     ArrowDownCircleIcon,
+    ArrowLongUpIcon,
+    LockOpenIcon,
     UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -30,93 +32,70 @@ export default function Header() {
     console.log("TESt", _arr);
 
     return (
-        <nav className="bg-white  fixed w-full z-20 top-0 left-0 border-b border-gray-200">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
+        <div className="navbar bg-base-100 px-8">
+            <div className="navbar-start">
                 <AppLogo />
-                <div className="flex md:order-2">
-                    {session && session.user ? (
-                        <div className="flex flex-col p-4 md:p-0 mt-4 font-medium borde md:flex-row md:space-x-8 md:mt-0 md:border-0">
-                            <div className="flex flex-row justify-center items-center">
-                                <div>
-                                    <p>
-                                        <UserCircleIcon
-                                            width={20}
-                                            className="inline"
-                                        />
-                                        {session.user.name}
-                                    </p>
+            </div>
+            <div className="navbar-end">
+                {session && session.user ? (
+                    <div className="flex-none gap-2">
+                        <div className="dropdown dropdown-end">
+                            <label
+                                tabIndex={0}
+                                className="btn btn-ghost btn-circle avatar"
+                            >
+                                <div className="w-10 rounded-full">
+                                    <Image
+                                        src="/imgs/profile.png"
+                                        alt="Profile image"
+                                        fill
+                                    />
                                 </div>
+                            </label>
+                            <ul
+                                tabIndex={0}
+                                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                            >
+                                <li>
+                                    <Link href={"/profile"}>Profile</Link>
+                                </li>
+                                {...session.accounts.map((account) => (
+                                    <li key={account.id}>
+                                        <Link
+                                            href={"/" + account.type}
+                                            className="justify-between"
+                                        >
+                                            {account.name}
 
-                                <details className="dropdown">
-                                    <summary className="m-1 btn">
-                                        <ArrowDownCircleIcon
-                                            width={20}
-                                            className="inline"
-                                        />
-                                    </summary>
-                                    <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                                        {...session.accounts.map((account) => (
-                                            <li key={account.id}>
-                                                <Link href={"/" + account.type}>
-                                                    My {account.type} account
-                                                </Link>
-                                            </li>
-                                        ))}
-                                        <li className="mt-4">
-                                            <PrimaryButton
-                                                onClick={() => signOut()}
-                                            >
-                                                Logout
-                                            </PrimaryButton>
-                                        </li>
-                                    </ul>
-                                </details>
-                            </div>
+                                            <span className="badge">
+                                                {account.type}
+                                            </span>
+                                        </Link>
+                                    </li>
+                                ))}
+
+                                <div className="divider py-1 my-0"></div>
+                                <li>
+                                    <a
+                                        role="button"
+                                        className=""
+                                        onClick={() => signOut()}
+                                    >
+                                        {" "}
+                                        Logout
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                    ) : (
-                        <NavLink href={`/ogin`}> Login </NavLink>
-                    )}
-
-                    <button
-                        data-collapse-toggle="navbar-sticky"
-                        type="button"
-                        className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                        aria-controls="navbar-sticky"
-                        aria-expanded="false"
-                    >
-                        <span className="sr-only">Open main menu</span>
-                        <svg
-                            className="w-5 h-5"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 17 14"
-                        >
-                            <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M1 1h15M1 7h15M1 13h15"
-                            />
-                        </svg>
-                    </button>
-                </div>
-                <div
-                    className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-                    id="navbar-sticky"
-                >
-                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium borde md:flex-row md:space-x-8 md:mt-0 md:border-0  ">
+                    </div>
+                ) : (
+                    <ul>
                         <li>
-                            <Link href="/">Products</Link>
-                        </li>
-
-                        <li>
-                            <Link href="/">About</Link>
+                            <a href="/">About</a>
                         </li>
                     </ul>
-                </div>
+                )}
             </div>
-        </nav>
+        </div>
     );
 }

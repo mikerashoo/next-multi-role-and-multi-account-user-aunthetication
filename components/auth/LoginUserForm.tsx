@@ -68,38 +68,40 @@ export function LoginUserForm(props: { title: string; type: AccountType }) {
         }
     };
     return (
-        <DefaultCard title={props.title} error={error}>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-                <LabelInputVertical
-                    id="email"
-                    label="Email"
-                    type="email"
-                    error={errors.email}
-                    placeholder="Enter email here"
-                    register={register("email")}
-                />
+        <div className="w-50">
+            <DefaultCard title={props.title} error={error}>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+                    <LabelInputVertical
+                        id="email"
+                        label="Email"
+                        type="email"
+                        error={errors.email}
+                        placeholder="Enter email here"
+                        register={register("email")}
+                    />
 
-                <LabelInputVertical
-                    id="password"
-                    label="Password"
-                    type="password"
-                    error={errors.password}
-                    placeholder="Enter password here"
-                    register={register("password")}
-                />
+                    <LabelInputVertical
+                        id="password"
+                        label="Password"
+                        type="password"
+                        error={errors.password}
+                        placeholder="Enter password here"
+                        register={register("password")}
+                    />
 
-                <SubmitButton isLoading={isLoading}>Login</SubmitButton>
+                    <SubmitButton isLoading={isLoading}>Login</SubmitButton>
 
-                <p className="text-gray-500 dark:text-gray-400">
-                    Not registered yet?{" "}
-                    <Link
-                        href={`/${props.type}/register`}
-                        className="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
-                    >
-                        Register
-                    </Link>
-                </p>
-            </form>
-        </DefaultCard>
+                    <p className="text-gray-500 dark:text-gray-400">
+                        Not registered yet?{" "}
+                        <Link
+                            href={`/${props.type}/register`}
+                            className="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
+                        >
+                            Register
+                        </Link>
+                    </p>
+                </form>
+            </DefaultCard>
+        </div>
     );
 }

@@ -57,51 +57,49 @@ export function RegisterUserForm(props: { title: string; type: AccountType }) {
     };
 
     return (
-        <DefaultCard title={title} error={error}>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-                <LabelInputVertical
-                    id="name"
-                    label="Name"
-                    type="text"
-                    placeholder="Enter name"
-                    error={errors.name}
-                    register={register("name")}
-                />
-                <input
-                    value={type}
-                    type="hidden"
-                    {...register("accountType")}
-                />
-                <LabelInputVertical
-                    id="email"
-                    label="Email"
-                    type="email"
-                    error={errors.email}
-                    placeholder="Enter email here"
-                    register={register("email")}
-                />
+        <div className="w-50">
+            <DefaultCard title={title} error={error}>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+                    <LabelInputVertical
+                        id="name"
+                        label="Name"
+                        type="text"
+                        placeholder="Enter name"
+                        error={errors.name}
+                        register={register("name")}
+                    />
 
-                <LabelInputVertical
-                    id="password"
-                    label="Password"
-                    type="password"
-                    error={errors.password}
-                    placeholder="Enter password here"
-                    register={register("password")}
-                />
+                    <LabelInputVertical
+                        id="email"
+                        label="Email"
+                        type="email"
+                        error={errors.email}
+                        placeholder="Enter email here"
+                        register={register("email")}
+                    />
 
-                <SubmitButton isLoading={isLoading}>Register</SubmitButton>
+                    <LabelInputVertical
+                        id="password"
+                        label="Password"
+                        type="password"
+                        error={errors.password}
+                        placeholder="Enter password here"
+                        register={register("password")}
+                    />
 
-                <p className="text-gray-500 dark:text-gray-400">
-                    Have account{" "}
-                    <Link
-                        href={`/${type}/login`}
-                        className="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
-                    >
-                        Login
-                    </Link>
-                </p>
-            </form>
-        </DefaultCard>
+                    <SubmitButton isLoading={isLoading}>Register</SubmitButton>
+
+                    <p className="text-gray-500 dark:text-gray-400">
+                        Have account{" "}
+                        <Link
+                            href={`/${type}/login`}
+                            className="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline"
+                        >
+                            Login
+                        </Link>
+                    </p>
+                </form>
+            </DefaultCard>
+        </div>
     );
 }

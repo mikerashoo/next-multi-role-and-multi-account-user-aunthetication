@@ -97,7 +97,7 @@ export function LinkedSection(props: {
                     height={200}
                     className="w-24 h-24 mb-3 rounded-full shadow-lg"
                 />
-                <h5 className="mb-1 text-xl text-center font-medium text-gray-900 ">
+                <h5 className="w-full mb-1 text-xl text-center font-medium text-gray-900 ">
                     My {accountType} account
                 </h5>
                 <span className="text-sm text-gray-500 dark:text-gray-400">

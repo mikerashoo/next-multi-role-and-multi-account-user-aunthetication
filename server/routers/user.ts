@@ -72,7 +72,7 @@ export const userRouter = router({
       signUpSchema
     )
     .mutation(async ({ input }) => {
-        const { name, email, password, accountType } = input;
+        const { name, email, password, } = input;
 
       const exists = await prisma.user.findUnique({
         where: { email },
@@ -91,9 +91,7 @@ export const userRouter = router({
         data: {  name, email, password: hashedPassword },
       });
         
-       await prisma.account.create({
-        data: {type: accountType, userId: user.id}
-      })
+      
     return user;
      
     }),
@@ -104,7 +102,7 @@ export const userRouter = router({
       linkAccountSchema
     )
     .mutation(async ({ input }) => {
-        const { userId, accountType } = input;
+        const { userId, accountType, name } = input;
 
         const exists = await prisma.user.findUnique({
           where: { id: userId },
@@ -131,7 +129,7 @@ export const userRouter = router({
         } 
           
         const account = await prisma.account.create({
-          data: {type: accountType, userId }
+          data: {type: accountType, userId, name }
         })
         return account;
      

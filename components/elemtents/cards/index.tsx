@@ -2,12 +2,16 @@ import { CardProps } from "./props";
 
 export function DefaultCard(props: CardProps) {
     const { children, title, error, ...rest } = props;
-    // Render
     return (
-        <div className="w-full bg-white border border-gray-200 rounded-lg shadow p-4">
-            <div className="card-body p-4">
-                {title && <h2 className="card-title ">{title}</h2>}
-                {/* <div className="divider mt-0 mb-0.5"></div> */}
+        <div className="card  bg-base-100 w-full rounded-lg hover:shadow-xl">
+            <div className="card-body p-8">
+                {title && (
+                    <>
+                        <h2 className="card-title ">{title}</h2>
+                        <div className="divider mt-0 mb-0.5"></div>
+                    </>
+                )}
+                {/* */}
 
                 {error && (
                     <div className="alert alert-error mb-2">

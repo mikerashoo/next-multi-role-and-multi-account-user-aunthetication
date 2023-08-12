@@ -3,17 +3,24 @@ import { AccountType } from "~/utils/constants/userRoles";
 
 export const loginSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8).max(12),
+  password: z.string({
+    required_error: "Password is required"
+  }).min(8, {
+    message: "Password must length must be greater than 7"
+  }),
 });
 
 export const signUpSchema = loginSchema.extend({
-  name: z.string(), 
-  accountType: z.string(),
+  name: z.string(),  
 });
 
 export const linkAccountSchema = z.object({
   userId: z.string(),
   accountType: z.string(),
+  name: z.string().min(1, {
+    message: "Name is required",
+
+  }),
 });
 
 

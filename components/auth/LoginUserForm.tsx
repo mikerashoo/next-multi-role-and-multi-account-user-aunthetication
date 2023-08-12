@@ -42,7 +42,7 @@ export function LoginUserForm(props: { title: string; type: AccountType }) {
             redirect: Boolean(false),
             email: email,
             password: password,
-            callbackUrl: callbackUrl || "/" + props.type,
+            callbackUrl: "/" + props.type,
         })) as unknown as SignInResponse;
         const { ok, error, url } = resp;
         if (ok && url) {

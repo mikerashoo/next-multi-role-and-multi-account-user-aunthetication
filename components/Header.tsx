@@ -8,10 +8,6 @@ import AppLogo from "./AppLogo";
 export default function Header() {
     const { data: session } = useSession();
 
-    const arr = ["one", "two", "three"];
-    const _arr = arr.filter((_a) => _a != "one");
-    console.log("TESt", _arr);
-
     return (
         <div className="navbar bg-base-100 px-8">
             <div className="navbar-start">

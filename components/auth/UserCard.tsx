@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Account, Session, User } from "next-auth";
+import { Account, User } from "next-auth";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -11,11 +11,7 @@ import {
     deleteAccountSchema,
     IDeleteAccountLink,
 } from "~/shared/validation/auth";
-import {
-    DefaultButton,
-    PrimaryButton,
-    WarningButton,
-} from "../elemtents/buttons";
+import { DefaultButton, WarningButton } from "../elemtents/buttons";
 import { DefaultCard } from "../elemtents/cards";
 import Divider from "../commons/Dividers";
 function UserCard(props: { user: User | undefined; account: Account }) {
@@ -26,11 +22,7 @@ function UserCard(props: { user: User | undefined; account: Account }) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const { data: session, update: sessionUpdate } = useSession();
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<IDeleteAccountLink>({
+    const { register, handleSubmit } = useForm<IDeleteAccountLink>({
         resolver: zodResolver(deleteAccountSchema),
     });
     const router = useRouter();
@@ -48,7 +40,7 @@ function UserCard(props: { user: User | undefined; account: Account }) {
             });
             router.push("/");
         },
-        onError: (error, variables, context) => {
+        onError: (error) => {
             setIsLoading(false);
 
             console.error("error", error);
@@ -60,8 +52,7 @@ function UserCard(props: { user: User | undefined; account: Account }) {
         setError(null);
         setIsLoading(false);
         setIsModalOpen(false);
-
-        const resp = await deleteAccountMutation.mutateAsync(data);
+        await deleteAccountMutation.mutateAsync(data);
     };
     return (
         <DefaultCard error={error}>

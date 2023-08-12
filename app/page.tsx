@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "~/shared/nextAuthOptions";
 import { AccountType } from "~/utils/constants/userRoles";
 import HomePageAccountSection from "~/components/home-components/HomePageAccountSection";
-import LoadingSpinner from "~/components/commons/LoadingSpinner";
 
 export default async function Page() {
     const session = await getServerSession(nextAuthOptions);

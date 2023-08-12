@@ -2,7 +2,6 @@ import { Session } from "next-auth";
 import Image from "next/image";
 import React from "react";
 import { AccountType } from "~/utils/constants/userRoles";
-import { LinkAccount } from "../auth/LinkAccount";
 import { NavLink, NavLinkSecondary } from "../elemtents/buttons";
 
 export function UnauthenticatedAccountSection(props: {
@@ -49,7 +48,7 @@ export function NotLinkedSection(props: {
     accountType: AccountType;
     session: Session | null;
 }) {
-    const { accountType, session } = props;
+    const { accountType } = props;
 
     return (
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
@@ -83,7 +82,7 @@ export function LinkedSection(props: {
     accountType: AccountType;
     session: Session | null;
 }) {
-    const { accountType, session } = props;
+    const { accountType } = props;
 
     return (
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">

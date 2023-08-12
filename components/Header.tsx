@@ -36,8 +36,15 @@ export default function Header() {
             <div className="navbar-start">
                 <AppLogo />
             </div>
+            <div className="nav-center">
+                <ul className="mr-4">
+                    <li>
+                        <a href="/about">About</a>
+                    </li>
+                </ul>
+            </div>
             <div className="navbar-end">
-                {session && session.user ? (
+                {session && session.user && (
                     <div className="flex-none gap-2">
                         <div className="dropdown dropdown-end">
                             <label
@@ -88,12 +95,6 @@ export default function Header() {
                             </ul>
                         </div>
                     </div>
-                ) : (
-                    <ul>
-                        <li>
-                            <a href="/">About</a>
-                        </li>
-                    </ul>
                 )}
             </div>
         </div>

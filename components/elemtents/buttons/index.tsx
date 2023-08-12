@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useFormContext } from "react-hook-form";
 import { BtnProps, NavBtnProps } from "./BtnProps";
 
 export function DefaultButton(props: BtnProps) {
@@ -85,8 +86,7 @@ export function SubmitButton(props: BtnProps) {
         >
             {isLoading ? (
                 <>
-                    <span className="loading loading-spinner"></span>{" "}
-                    {props.children}
+                    <span className="loading loading-spinner"></span> {children}
                 </>
             ) : (
                 <>

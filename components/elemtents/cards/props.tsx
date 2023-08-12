@@ -1,11 +1,7 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes } from "react";
 
-export interface CardProps
-    extends React.DetailedHTMLProps<
-        HTMLAttributes<HTMLDivElement>,
-        HTMLDivElement
-    > {
-    children?: JSX.Element | JSX.Element[];
+export interface CardProps {
+    children?: JSX.Element;
     title?: string;
     error?: string;
 }

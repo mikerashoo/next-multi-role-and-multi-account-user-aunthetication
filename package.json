@@ -4,7 +4,6 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build:postgres": "prisma migrate deploy",
         "build:next": "next build",
         "build": "run-s build:*",
         "start": "next start",

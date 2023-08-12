@@ -6,7 +6,7 @@ import LoadingSpinner from "~/components/commons/LoadingSpinner";
 
 export default async function Page() {
     const session = await getServerSession(nextAuthOptions);
-    return <LoadingSpinner />;
+
     return (
         <div className=" flex justify-center space-x-8 w-full">
             {Object.values(AccountType).map((accountType) => (

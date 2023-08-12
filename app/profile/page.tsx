@@ -1,8 +1,6 @@
 import { getServerSession } from "next-auth";
-import { signOut } from "next-auth/react";
 import Image from "next/image";
 import SignoutBtn from "~/components/auth/SignoutBtn";
-import UserCard from "~/components/auth/UserCard";
 import Divider from "~/components/commons/Dividers";
 import LoadingSpinner from "~/components/commons/LoadingSpinner";
 import { nextAuthOptions } from "~/shared/nextAuthOptions";

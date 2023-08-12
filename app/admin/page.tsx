@@ -1,16 +1,37 @@
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "~/shared/nextAuthOptions";
-import { PrimaryButton } from "~/components/elemtents/buttons";
-import { DefaultCard } from "~/components/elemtents/cards";
+import Image from "next/image";
+import Divider from "~/components/commons/Dividers";
+import SignoutBtn from "~/components/auth/SignoutBtn";
+import LoadingSpinner from "~/components/commons/LoadingSpinner";
 
 export default async function Page() {
     const session = await getServerSession(nextAuthOptions);
-    console.log("=========", session);
+    if (!session) return <LoadingSpinner />;
+
     return (
-        <div>
-            <DefaultCard>
-                <h1>Admin Page</h1>
-            </DefaultCard>
+        <div className="space-y-6 p-4">
+            <h1>Admin Dashboard</h1>
+            <div className="card bg-base-100  items-center">
+                <div className="card-body flex items-center">
+                    <div className="rounded-full">
+                        <Image
+                            src="/imgs/profile.png"
+                            alt="Profile image"
+                            width={150}
+                            height={150}
+                        />
+                    </div>
+
+                    <h1>{session?.user?.name}</h1>
+                    <span>{session?.user?.email}</span>
+                    <p className="text-left">Role : {session?.user?.role}</p>
+
+                    <Divider />
+
+                    <SignoutBtn />
+                </div>
+            </div>
         </div>
     );
 }

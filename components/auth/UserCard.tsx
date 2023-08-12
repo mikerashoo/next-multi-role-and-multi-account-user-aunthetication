@@ -66,7 +66,9 @@ function UserCard(props: { user: User | undefined; account: Account }) {
     return (
         <DefaultCard error={error}>
             <div>
-                <p>Account Name: {account?.name}</p>
+                <p>
+                    Account Name: <>{account?.name}</>
+                </p>
                 <Divider />
                 <div>
                     <WarningButton onClick={() => setIsModalOpen(true)}>

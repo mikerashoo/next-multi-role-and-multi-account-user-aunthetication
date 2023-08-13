@@ -55,7 +55,7 @@ export async function middleware(request: NextRequest) {
         }
 
         // BUYER AUTHORIZATION
-        if (pathname.startsWith(buyerPath)) {
+        else if (pathname.startsWith(buyerPath)) {
             const buyerAccount = token.accounts.find(
                 (account) => account.type == AccountType.buyer
             );
@@ -71,7 +71,7 @@ export async function middleware(request: NextRequest) {
         }
 
         // SELLER AUTHORIZATION
-        if (pathname.startsWith(sellerPath)) {
+        else if (pathname.startsWith(sellerPath)) {
             const sellerAccount = token.accounts.find(
                 (account) => account.type == AccountType.seller
             );

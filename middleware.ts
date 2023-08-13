@@ -26,9 +26,10 @@ export async function middleware(request: NextRequest) {
         secret: process.env.SECRET,
     });
 
-    if (token) {
+    if (authPaths.some((path) => pathname.startsWith(path))) {
         // prevent logged user from accessing auth paths
-        if (authPaths.some((path) => pathname.startsWith(path))) {
+
+        if (token) {
             const dashboardPath = pathname.substring(
                 0,
                 pathname.lastIndexOf("/")
@@ -38,7 +39,10 @@ export async function middleware(request: NextRequest) {
 
             return NextResponse.redirect(url);
         }
+        return res;
+    }
 
+    if (token) {
         const authorizedForAdmin =
             pathname.startsWith(adminPath) && !token.isAdmin;
         const authorizedForUser =
